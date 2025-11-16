@@ -6,13 +6,13 @@ The Library Management System is a user-friendly desktop application that helps 
 
 **📚 Book Management**
 
-Add New Books: Complete book details including title, author, ISBN, and quantity
+* Add New Books: Complete book details including title, author, ISBN, and quantity
 
-View Book Catalog: Browse all books in the library with availability status
+* View Book Catalog: Browse all books in the library with availability status
 
-Delete Books: Remove books from inventory (with safety checks)
+* Delete Books: Remove books from inventory (with safety checks)
 
-Inventory Tracking: Automatic tracking of available copies
+* Inventory Tracking: Automatic tracking of available copies
 
 **👥 Member Management**
 
