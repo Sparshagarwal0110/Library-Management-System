@@ -1,7 +1,7 @@
-📖 Overview
+**📖 Overview**
 The Library Management System is a user-friendly desktop application that helps librarians efficiently manage book inventory, member registrations, and book circulation processes. It provides a complete solution for day-to-day library operations with an intuitive graphical interface.
 
-✨ Features
+**✨ Features**
 📚 Book Management
 Add New Books: Complete book details including title, author, ISBN, and quantity
 
@@ -36,7 +36,7 @@ Issued Books Report: Current circulation status
 
 Overdue Books Report: Identify delayed returns
 
-🔧 Technical Details
+**🔧 Technical Details**
 Built With
 Python: Core programming language
 
@@ -49,7 +49,7 @@ datetime: Date handling for due dates
 Key Dependencies
 Python Standard Library only - no external dependencies required
 
-🎯 Business Rules
+**🎯 Business Rules**
 Maximum 5 books can be issued to a single member simultaneously
 
 Standard loan period is 14 days
@@ -62,7 +62,7 @@ ISBN and email addresses must be unique
 
 Automatic availability tracking
 
-🚨 Error Handling
+**🚨 Error Handling**
 The system includes comprehensive error handling for:
 
 Duplicate ISBN/email entries
