@@ -1,8 +1,8 @@
-**📖 Overview**
+# 📖 Overview
 
 The Library Management System is a user-friendly desktop application that helps librarians efficiently manage book inventory, member registrations, and book circulation processes. It provides a complete solution for day-to-day library operations with an intuitive graphical interface.
 
-**✨ Features**
+# ✨ Features
 
 📚 Book Management
 Add New Books: Complete book details including title, author, ISBN, and quantity
