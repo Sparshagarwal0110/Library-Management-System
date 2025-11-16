@@ -1,5 +1,3 @@
-# Library-Management-System
-Library Management System College Minor Project.
 📖 Overview
 The Library Management System is a user-friendly desktop application that helps librarians efficiently manage book inventory, member registrations, and book circulation processes. It provides a complete solution for day-to-day library operations with an intuitive graphical interface.
 
