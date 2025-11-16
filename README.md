@@ -4,7 +4,7 @@ The Library Management System is a user-friendly desktop application that helps 
 
 # ✨ Features
 
-📚 Book Management
+**📚 Book Management**
 Add New Books: Complete book details including title, author, ISBN, and quantity
 
 View Book Catalog: Browse all books in the library with availability status
@@ -13,14 +13,14 @@ Delete Books: Remove books from inventory (with safety checks)
 
 Inventory Tracking: Automatic tracking of available copies
 
-👥 Member Management
+**👥 Member Management**
 Member Registration: Add new library members with contact information
 
 Member Directory: View and manage all registered members
 
 Membership Tracking: Record membership dates and details
 
-🔄 Circulation Management
+**🔄 Circulation Management**
 Book Issuing: Issue books to members with due dates
 
 Book Returns: Process book returns efficiently
@@ -29,7 +29,7 @@ Borrowing Limits: Enforce maximum 5 books per member
 
 Due Date Tracking: Automatic 14-day loan period calculation
 
-📊 Reporting System
+**📊 Reporting System**
 Books Report: Complete inventory listing
 
 Members Report: Detailed member directory
