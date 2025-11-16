@@ -33,6 +33,7 @@ Borrowing Limits: Enforce maximum 5 books per member
 Due Date Tracking: Automatic 14-day loan period calculation
 
 **📊 Reporting System**
+
 Books Report: Complete inventory listing
 
 Members Report: Detailed member directory
