@@ -10,13 +10,10 @@ class LibraryManagementSystem:
         self.root.geometry("900x600")
         self.root.resizable(True, True)
         
-        # Initialize database
         self.init_database()
-        
-        # Create GUI
+    
         self.create_gui()
         
-        # Load initial data
         self.load_books()
         self.load_members()
         self.load_issued_books()
@@ -25,8 +22,7 @@ class LibraryManagementSystem:
         """Initialize SQLite database and create tables"""
         self.conn = sqlite3.connect('library.db')
         self.cursor = self.conn.cursor()
-        
-        # Create tables if they don't exist
+       
         self.cursor.execute('''
             CREATE TABLE IF NOT EXISTS books (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -65,33 +61,29 @@ class LibraryManagementSystem:
     
     def create_gui(self):
         """Create the main GUI interface"""
-        # Create notebook for tabs
+        
         self.notebook = ttk.Notebook(self.root)
         self.notebook.pack(fill='both', expand=True, padx=10, pady=10)
-        
-        # Books tab
+       
         self.books_frame = ttk.Frame(self.notebook)
         self.notebook.add(self.books_frame, text='Books')
         self.create_books_tab()
-        
-        # Members tab
+       
         self.members_frame = ttk.Frame(self.notebook)
         self.notebook.add(self.members_frame, text='Members')
         self.create_members_tab()
-        
-        # Issue/Return tab
+       
         self.issue_frame = ttk.Frame(self.notebook)
         self.notebook.add(self.issue_frame, text='Issue/Return')
         self.create_issue_tab()
-        
-        # Reports tab
+       
         self.reports_frame = ttk.Frame(self.notebook)
         self.notebook.add(self.reports_frame, text='Reports')
         self.create_reports_tab()
     
     def create_books_tab(self):
         """Create the books management interface"""
-        # Add book frame
+        
         add_frame = ttk.LabelFrame(self.books_frame, text="Add New Book")
         add_frame.pack(fill='x', padx=10, pady=5)
         
@@ -113,7 +105,6 @@ class LibraryManagementSystem:
         
         ttk.Button(add_frame, text="Add Book", command=self.add_book).grid(row=2, column=3, padx=5, pady=5, sticky='e')
         
-        # Books list
         list_frame = ttk.LabelFrame(self.books_frame, text="Book List")
         list_frame.pack(fill='both', expand=True, padx=10, pady=5)
         
@@ -140,12 +131,11 @@ class LibraryManagementSystem:
         self.books_tree.pack(side='left', fill='both', expand=True)
         scrollbar.pack(side='right', fill='y')
         
-        # Delete button
         ttk.Button(list_frame, text="Delete Selected", command=self.delete_book).pack(side='bottom', pady=5)
     
     def create_members_tab(self):
         """Create the members management interface"""
-        # Add member frame
+        
         add_frame = ttk.LabelFrame(self.members_frame, text="Add New Member")
         add_frame.pack(fill='x', padx=10, pady=5)
         
@@ -163,7 +153,6 @@ class LibraryManagementSystem:
         
         ttk.Button(add_frame, text="Add Member", command=self.add_member).grid(row=1, column=3, padx=5, pady=5, sticky='e')
         
-        # Members list
         list_frame = ttk.LabelFrame(self.members_frame, text="Member List")
         list_frame.pack(fill='both', expand=True, padx=10, pady=5)
         
@@ -188,12 +177,11 @@ class LibraryManagementSystem:
         self.members_tree.pack(side='left', fill='both', expand=True)
         scrollbar.pack(side='right', fill='y')
         
-        # Delete button
         ttk.Button(list_frame, text="Delete Selected", command=self.delete_member).pack(side='bottom', pady=5)
     
     def create_issue_tab(self):
         """Create the book issue/return interface"""
-        # Issue book frame
+        
         issue_frame = ttk.LabelFrame(self.issue_frame, text="Issue Book")
         issue_frame.pack(fill='x', padx=10, pady=5)
         
@@ -207,7 +195,6 @@ class LibraryManagementSystem:
         
         ttk.Button(issue_frame, text="Issue Book", command=self.issue_book).grid(row=0, column=4, padx=5, pady=5)
         
-        # Return book frame
         return_frame = ttk.LabelFrame(self.issue_frame, text="Return Book")
         return_frame.pack(fill='x', padx=10, pady=5)
         
@@ -217,7 +204,6 @@ class LibraryManagementSystem:
         
         ttk.Button(return_frame, text="Return Book", command=self.return_book).grid(row=0, column=2, padx=5, pady=5)
         
-        # Issued books list
         list_frame = ttk.LabelFrame(self.issue_frame, text="Currently Issued Books")
         list_frame.pack(fill='both', expand=True, padx=10, pady=5)
         
@@ -244,68 +230,55 @@ class LibraryManagementSystem:
     
     def create_reports_tab(self):
         """Create the reports interface"""
-        # Reports frame
+       
         reports_frame = ttk.Frame(self.reports_frame)
         reports_frame.pack(fill='both', expand=True, padx=10, pady=10)
         
-        # Buttons for different reports
         ttk.Button(reports_frame, text="Books Report", command=self.generate_books_report, width=20).pack(pady=5)
         ttk.Button(reports_frame, text="Members Report", command=self.generate_members_report, width=20).pack(pady=5)
         ttk.Button(reports_frame, text="Issued Books Report", command=self.generate_issued_report, width=20).pack(pady=5)
         ttk.Button(reports_frame, text="Overdue Books", command=self.generate_overdue_report, width=20).pack(pady=5)
         
-        # Text area for report display
         self.report_text = tk.Text(reports_frame, height=20, width=80)
         self.report_text.pack(pady=10, fill='both', expand=True)
         
-        # Scrollbar for text area
         scrollbar = ttk.Scrollbar(self.report_text, orient='vertical', command=self.report_text.yview)
         self.report_text.configure(yscrollcommand=scrollbar.set)
         scrollbar.pack(side='right', fill='y')
     
     def load_books(self):
         """Load books from database into the treeview"""
-        # Clear existing items
         for item in self.books_tree.get_children():
             self.books_tree.delete(item)
         
-        # Fetch books from database
         self.cursor.execute("SELECT * FROM books")
         books = self.cursor.fetchall()
         
-        # Add books to treeview
         for book in books:
             self.books_tree.insert('', 'end', values=book)
         
-        # Update issue book combo
         self.cursor.execute("SELECT id, title FROM books WHERE available > 0")
         available_books = self.cursor.fetchall()
         self.issue_book_combo['values'] = [f"{book[0]} - {book[1]}" for book in available_books]
     
     def load_members(self):
         """Load members from database into the treeview"""
-        # Clear existing items
         for item in self.members_tree.get_children():
             self.members_tree.delete(item)
         
-        # Fetch members from database
         self.cursor.execute("SELECT * FROM members")
         members = self.cursor.fetchall()
         
-        # Add members to treeview
         for member in members:
             self.members_tree.insert('', 'end', values=member)
         
-        # Update issue member combo
         self.issue_member_combo['values'] = [f"{member[0]} - {member[1]}" for member in members]
     
     def load_issued_books(self):
         """Load issued books from database into the treeview"""
-        # Clear existing items
         for item in self.issued_tree.get_children():
             self.issued_tree.delete(item)
         
-        # Fetch issued books from database
         self.cursor.execute('''
             SELECT ib.id, b.title, m.name, ib.issue_date, ib.due_date 
             FROM issued_books ib
@@ -315,11 +288,9 @@ class LibraryManagementSystem:
         ''')
         issued_books = self.cursor.fetchall()
         
-        # Add issued books to treeview
         for book in issued_books:
             self.issued_tree.insert('', 'end', values=book)
         
-        # Update return combo
         self.return_combo['values'] = [f"{book[0]} - {book[1]} (by {book[2]})" for book in issued_books]
     
     def add_book(self):
@@ -349,13 +320,11 @@ class LibraryManagementSystem:
             self.conn.commit()
             messagebox.showinfo("Success", "Book added successfully")
             
-            # Clear input fields
             self.title_entry.delete(0, 'end')
             self.author_entry.delete(0, 'end')
             self.isbn_entry.delete(0, 'end')
             self.quantity_entry.delete(0, 'end')
             
-            # Reload books
             self.load_books()
             
         except sqlite3.IntegrityError:
@@ -370,7 +339,6 @@ class LibraryManagementSystem:
         
         book_id = self.books_tree.item(selected[0])['values'][0]
         
-        # Check if book is currently issued
         self.cursor.execute("SELECT COUNT(*) FROM issued_books WHERE book_id = ? AND return_date IS NULL", (book_id,))
         count = self.cursor.fetchone()[0]
         
@@ -403,12 +371,10 @@ class LibraryManagementSystem:
             self.conn.commit()
             messagebox.showinfo("Success", "Member added successfully")
             
-            # Clear input fields
             self.member_name_entry.delete(0, 'end')
             self.email_entry.delete(0, 'end')
             self.phone_entry.delete(0, 'end')
             
-            # Reload members
             self.load_members()
             
         except sqlite3.IntegrityError:
@@ -423,7 +389,6 @@ class LibraryManagementSystem:
         
         member_id = self.members_tree.item(selected[0])['values'][0]
         
-        # Check if member has issued books
         self.cursor.execute("SELECT COUNT(*) FROM issued_books WHERE member_id = ? AND return_date IS NULL", (member_id,))
         count = self.cursor.fetchone()[0]
         
@@ -448,7 +413,6 @@ class LibraryManagementSystem:
         member_id = int(member_selection.split(' - ')[0])
         book_id = int(book_selection.split(' - ')[0])
         
-        # Check if member has reached borrowing limit (e.g., 5 books)
         self.cursor.execute(
             "SELECT COUNT(*) FROM issued_books WHERE member_id = ? AND return_date IS NULL", 
             (member_id,)
@@ -460,16 +424,14 @@ class LibraryManagementSystem:
             return
         
         issue_date = datetime.now().strftime("%Y-%m-%d")
-        due_date = (datetime.now() + timedelta(days=14)).strftime("%Y-%m-%d")  # 2 weeks loan period
+        due_date = (datetime.now() + timedelta(days=14)).strftime("%Y-%m-%d") 
         
         try:
-            # Insert issued book record
             self.cursor.execute(
                 "INSERT INTO issued_books (book_id, member_id, issue_date, due_date) VALUES (?, ?, ?, ?)",
                 (book_id, member_id, issue_date, due_date)
             )
             
-            # Update available book count
             self.cursor.execute(
                 "UPDATE books SET available = available - 1 WHERE id = ?",
                 (book_id,)
@@ -478,7 +440,6 @@ class LibraryManagementSystem:
             self.conn.commit()
             messagebox.showinfo("Success", f"Book issued successfully. Due date: {due_date}")
             
-            # Reload data
             self.load_books()
             self.load_issued_books()
             
@@ -496,17 +457,14 @@ class LibraryManagementSystem:
         return_date = datetime.now().strftime("%Y-%m-%d")
         
         try:
-            # Get book_id from issued_books
             self.cursor.execute("SELECT book_id FROM issued_books WHERE id = ?", (issue_id,))
             book_id = self.cursor.fetchone()[0]
             
-            # Update issued_books with return date
             self.cursor.execute(
                 "UPDATE issued_books SET return_date = ? WHERE id = ?",
                 (return_date, issue_id)
             )
             
-            # Update available book count
             self.cursor.execute(
                 "UPDATE books SET available = available + 1 WHERE id = ?",
                 (book_id,)
@@ -515,7 +473,6 @@ class LibraryManagementSystem:
             self.conn.commit()
             messagebox.showinfo("Success", "Book returned successfully")
             
-            # Reload data
             self.load_books()
             self.load_issued_books()
             
